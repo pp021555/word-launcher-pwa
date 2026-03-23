@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Word Launcher PWA</title>
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <h1>Word Launcher PWA</h1>
+      <p>离线版。页面、词库副本、错题本、统计都保存在手机本地。首次在线打开并安装到主屏幕后，之后可离线学习。</p>
+    </div>
+
+    <div class="card">
+      <h2>安装与更新</h2>
+      <div class="sub">推荐流程：
+1. 首次在线打开本页面，点击“安装到桌面”。
+2. 电脑编辑 word_book.json。
+3. 电脑运行 export_word_pack.py，生成 word_pack.json。
+4. 手机上点“导入更新包”，把新词库导入本地。
+      </div>
+
+      <div class="grid">
+        <button id="installBtn" class="secondary hidden">安装到桌面</button>
+        <button class="secondary" onclick="exportLocalBackup()">导出本地备份</button>
+      </div>
+
+      <div class="row-label">导入电脑导出的更新包（word_pack.json）</div>
+      <input id="wordPackFile" type="file" accept=".json,application/json" />
+      <button onclick="importWordPack()">导入更新包</button>
+
+      <div class="row-label">导入本地备份（可选）</div>
+      <input id="localBackupFile" type="file" accept=".json,application/json" />
+      <button class="secondary" onclick="importLocalBackup()">导入本地备份</button>
+
+      <div id="syncInfo" class="info-box muted">尚未导入更新包。</div>
+    </div>
+
+    <div class="card">
+      <h2>学习模式</h2>
+
+      <div class="row-label">答题方向</div>
+      <select id="directionSelect">
+        <option value="en_to_zh">英文 → 中文</option>
+        <option value="zh_to_en">中文 → 英文</option>
+      </select>
+
+      <div class="row-label">选择分组</div>
+      <select id="groupSelect"></select>
+
+      <div class="grid">
+        <button onclick="startRandomQuiz()">随机抽查</button>
+        <button class="secondary" onclick="startGroupReview()">按组复习</button>
+        <button class="warn" onclick="startWrongReview()">错题本复习</button>
+        <button class="secondary" onclick="renderAllWords()">查看本地词库</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>答题区</h2>
+      <div id="questionType" class="sub">当前题型：无</div>
+      <div id="progressText" class="sub">总计：0 个，当前：0 / 0</div>
+      <div id="questionBox" class="question-box">题目会显示在这里</div>
+
+      <input id="answerInput" type="text" placeholder="请输入答案" />
+
+      <div class="grid">
+        <button onclick="submitAnswer()">提交答案</button>
+        <button class="secondary" onclick="nextQuestion()">下一题</button>
+      </div>
+
+      <div id="resultBox" class="result-box muted">结果：等待开始</div>
+    </div>
+
+    <div class="card">
+      <h2>本地统计</h2>
+      <div id="statsBox" class="stat muted">暂无统计。</div>
+      <div class="grid">
+        <button class="warn" onclick="clearWrongBook()">清空本地错题本</button>
+        <button class="danger" onclick="resetLocalWordBook()">清空本地词库</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>本地词库内容</h2>
+      <div id="allWordsBox" class="info-box muted">暂无本地词库，请先导入更新包。</div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
