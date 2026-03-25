@@ -14,12 +14,16 @@
   <div class="app">
     <div class="header">
       <h1>Word Launcher PWA</h1>
-      <p>离线版。页面、词库副本、错题本、统计都保存在手机本地。首次在线打开并安装到主屏幕后，之后可离线学习。</p>
+      <p>
+        离线版。页面、词库副本、错题本、统计都保存在手机本地。<br>
+        首次在线打开并安装到主屏幕后，之后可离线学习。
+      </p>
     </div>
 
     <div class="card">
       <h2>安装与更新</h2>
-      <div class="sub">推荐流程：
+      <div class="sub">
+推荐流程：
 1. 首次在线打开本页面，点击“安装到桌面”。
 2. 电脑编辑 word_book.json。
 3. 电脑运行 export_word_pack.py，生成 word_pack.json。
@@ -55,6 +59,7 @@
       <select id="groupSelect"></select>
 
       <div class="grid">
+        <button onclick="showSelectedGroupWords()">显示本组</button>
         <button onclick="startRandomQuiz()">随机抽查</button>
         <button class="secondary" onclick="startGroupReview()">按组复习</button>
         <button class="warn" onclick="startWrongReview()">错题本复习</button>
@@ -72,6 +77,7 @@
 
       <div class="grid">
         <button onclick="submitAnswer()">提交答案</button>
+        <button class="secondary" onclick="previousQuestion()">上一题</button>
         <button class="secondary" onclick="nextQuestion()">下一题</button>
       </div>
 
